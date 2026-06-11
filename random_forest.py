@@ -1,23 +1,56 @@
-Road_Name,Road_Type,Path_Group,Segment_Index,Start_Lat,Start_Lon,End_Lat,End_Lon,Length_Meters,Sinuosity_Index,Dist_to_Intersection_m,No_of_Lanes,Speed_Limit_kmh,Road_Surface,Has_Zebra_Crossing,Has_Streetlight_Infrastructure,Baseline_Traffic_Volume,Road_Condition,Start_Elevation_m,End_Elevation_m,Elevation_Gradient_Pct,Topography,Accident_Count,Is_Hotspot,Predicted_Hotspot
-Colombo-Kandy Road,trunk,1,3,6.967580024418789,79.90574439465935,6.967091472125458,79.90747015117279,200.0,1.0003,8.96,1.0,30.0,asphalt,0.0,0.0,Low,Good,6.0,6.0,0.0,Flat,0.0,0,0
-Wattala-Mahara Road,primary,1,3,6.9871190894934685,79.90571630177045,6.988835474275109,79.9062572003881,200.0,1.0341,64.15,1.0,50.0,asphalt,0.0,0.0,Low,Good,15.0,8.0,-5.28,Downhill,0.0,0,0
-Kiribathgoda-Makola-Sapugaskanda Road,secondary,3,2,6.976499185343033,79.93377834964302,6.977532464071224,79.93521216604188,200.0,1.0,47.48,1.0,30.0,asphalt,0.0,0.0,Low,Good,22.0,24.0,2.11,Uphill,0.0,0,0
-Wattala-Mahara Road,primary,1,14,6.996235243287364,79.9203053526497,6.9958185665185,79.92203760629974,200.0,1.0161,17.61,2.0,70.0,asphalt,1.0,1.0,High,Good,23.0,17.0,-3.0,Downhill,0.0,0,0
-Kiribathgoda-Hunupitiya Road,primary,1,14,6.976668444192609,79.92371385360087,6.975688699999999,79.9246414,149.12,1.0037,27.23,2.0,60.0,asphalt,1.0,1.0,High,Good,12.0,12.0,0.0,Flat,3.0,1,1
-Colombo-Kandy Road,trunk,1,32,6.9959908711289005,79.94721472257983,6.997531066307079,79.94809613562506,200.0,1.0196,181.14,2.0,60.0,asphalt,1.0,1.0,High,Good,32.0,26.0,-3.0,Downhill,0.0,0,0
-Waragoda Road,primary,1,8,6.958573116891154,79.90700547836532,6.958679587303915,79.908786750063,200.0,1.0,40.88,1.0,50.0,asphalt,0.0,0.0,Low,Good,11.0,13.0,2.45,Uphill,0.0,0,0
-Colombo-Kandy Road,trunk,1,30,6.993965675799123,79.94424004184631,6.994884445642856,79.9457944578785,200.0,1.0024,48.14,2.0,60.0,asphalt,1.0,1.0,High,Good,29.0,33.0,2.0,Uphill,0.0,0,1
-Unnamed_Road,secondary_link,2,1,6.975626100000001,79.9247015,6.975688699999999,79.9246414,9.59,1.0,4.8,1.0,40.0,asphalt,0.0,0.0,Moderate,Good,11.0,11.0,0.0,Flat,1.0,1,0
-Unnamed_Road,secondary_link,4,1,6.9779318,79.9276541,6.9779722,79.9271378,58.21,1.0174,25.58,1.0,40.0,asphalt,0.0,0.0,Moderate,Good,11.0,12.0,1.72,Uphill,0.0,0,0
-Colombo-Kandy Road,trunk,1,2,6.967852397996056,79.90396216573187,6.967580024418789,79.90574439465935,200.0,1.0069,77.94,2.0,60.0,asphalt,1.0,1.0,High,Good,6.0,10.0,2.0,Uphill,0.0,0,0
-Wattala-Mahara Road,primary,1,6,6.991347204834417,79.9083777434462,6.991339030934403,79.9101804793107,200.0,1.0128,32.03,1.0,50.0,asphalt,0.0,0.0,Low,Good,10.0,10.0,0.0,Flat,0.0,0,0
-Colombo-Kandy Road,trunk,1,29,6.992739917933432,79.94291279371666,6.993965675799123,79.94424004184631,200.0,1.0024,48.14,2.0,60.0,asphalt,1.0,1.0,High,Good,29.0,33.0,2.0,Uphill,0.0,0,1
-Colombo-Kandy Road,trunk,1,9,6.971013438278815,79.91558361999988,6.972163180439026,79.91697326858424,200.0,1.0034,38.23,2.0,60.0,asphalt,1.0,1.0,High,Good,10.0,9.0,-0.5,Flat,4.0,1,1
-Waragoda Road,primary,1,7,6.9586373842493146,79.90521639246424,6.958573116891154,79.90700547836532,200.0,1.0269,82.38,1.0,50.0,asphalt,0.0,0.0,Low,Good,11.0,10.0,-0.59,Flat,0.0,0,0
-Wattala-Mahara Road,primary,2,2,6.992628480755991,79.93874972829371,6.993919721906599,79.93749197442885,200.0,1.0039,47.92,2.0,70.0,asphalt,1.0,1.0,High,Good,33.0,30.0,-1.5,Flat,0.0,0,0
-Unnamed_Road,secondary_link,3,1,6.976707499999999,79.9258045,6.9767498,79.9257535,7.32,1.0,3.66,1.0,30.0,asphalt,0.0,0.0,Moderate,Good,14.0,14.0,0.0,Flat,0.0,0,0
-Colombo-Kandy Road,trunk,1,23,6.986426840697475,79.93504308757824,6.987283818711915,79.93659916629565,200.0,1.0001,29.07,1.0,30.0,asphalt,0.0,0.0,Low,Good,16.0,13.0,-5.16,Downhill,1.0,1,0
-Kiribathgoda-Hunupitiya Road,primary,1,4,6.982676611467263,79.90703850757652,6.981825511297993,79.90863416034736,200.0,1.0175,98.28,1.0,30.0,asphalt,0.0,0.0,Low,Good,11.0,13.0,1.0,Flat,0.0,0,0
-Colombo-Kandy Road,trunk,1,22,6.985057250799443,79.93386162392919,6.986426840697475,79.93504308757824,200.0,1.0004,138.55,2.0,60.0,asphalt,1.0,1.0,High,Good,9.0,8.0,-0.5,Flat,0.0,0,1
-Wattala-Mahara Road,primary,1,11,6.995475811793393,79.91525447479836,6.996359661765851,79.91680341471749,200.0,1.0575,20.54,2.0,50.0,asphalt,1.0,1.0,High,Good,24.0,18.0,-3.0,Downhill,0.0,0,0
-Waragoda Road,primary,1,11,6.959791012046893,79.91210349822725,6.960836477132803,79.91334641795015,200.0,1.0017,31.02,1.0,40.0,asphalt,0.0,0.0,High,Good,10.0,8.0,-1.0,Flat,0.0,0,0
+import os
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
+print("--- SCRIPT 1: BASIC RANDOM FOREST ---")
+print("1. Loading dataset...")
+df = pd.read_csv('fixed_segments_with_ml_features.csv')
+
+features_to_keep = [
+    'Road_Type', 'Sinuosity_Index', 'Dist_to_Intersection_m', 'No_of_Lanes', 
+    'Speed_Limit_kmh', 'Has_Zebra_Crossing', 'Has_Streetlight_Infrastructure', 
+    'Baseline_Traffic_Volume', 'Elevation_Gradient_Pct', 'Topography'
+]
+
+X = pd.get_dummies(df[features_to_keep], drop_first=True)
+y = df['Is_Hotspot']
+
+print("2. Splitting Data (80% Train, 20% Test)...")
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
+
+print("3. Training Basic Random Forest...")
+# Basic model with balanced weights for the imbalanced data
+rf_basic = RandomForestClassifier(class_weight='balanced', random_state=42)
+rf_basic.fit(X_train, y_train)
+
+print("4. Generating Predictions...")
+train_pred = rf_basic.predict(X_train)
+test_pred = rf_basic.predict(X_test)
+
+print("\n=== METRICS ===")
+print(f"Training Accuracy: {accuracy_score(y_train, train_pred) * 100:.2f}%")
+print(f"Testing Accuracy:  {accuracy_score(y_test, test_pred) * 100:.2f}%")
+
+print("\n5. Saving QGIS CSV...")
+test_df = df.loc[X_test.index].copy()
+test_df['Predicted_Hotspot'] = test_pred
+test_df.to_csv('QGIS_Predictions_1_Basic.csv', index=False)
+print("Saved -> 'QGIS_Predictions_1_Basic.csv'")
+
+print("\n6. Saving Confusion Matrix Image...")
+cm = confusion_matrix(y_test, test_pred)
+plt.figure(figsize=(6, 4))
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', 
+            xticklabels=["Predicted Safe", "Predicted Hotspot"], 
+            yticklabels=["Actually Safe", "Actually Hotspot"])
+plt.title('Basic Random Forest - Confusion Matrix')
+plt.ylabel('True Reality (Map)')
+plt.xlabel('Algorithm Prediction')
+plt.tight_layout()
+plt.savefig('Matrix_1_Basic_RF.png', dpi=300)
+print("Saved -> 'Matrix_1_Basic_RF.png'")
