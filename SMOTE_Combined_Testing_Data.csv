@@ -1,54 +1,24 @@
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
-
-print("--- SCRIPT 1: BASIC RANDOM FOREST ---")
-print("1. Loading dataset...")
-df = pd.read_csv('fixed_segments_with_ml_features.csv')
-
-features_to_keep = [
-    'Road_Type', 'Sinuosity_Index', 'Dist_to_Intersection_m', 'No_of_Lanes', 
-    'Speed_Limit_kmh', 'Has_Zebra_Crossing', 'Has_Streetlight_Infrastructure', 
-    'Baseline_Traffic_Volume', 'Elevation_Gradient_Pct', 'Topography'
-]
-
-X = pd.get_dummies(df[features_to_keep], drop_first=True)
-y = df['Is_Hotspot']
-
-print("2. Splitting Data (80% Train, 20% Test)...")
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
-
-print("3. Training Basic Random Forest...")
-# Basic model with balanced weights for the imbalanced data
-rf_basic = RandomForestClassifier(class_weight='balanced', random_state=42)
-rf_basic.fit(X_train, y_train)
-
-print("4. Generating Predictions...")
-train_pred = rf_basic.predict(X_train)
-test_pred = rf_basic.predict(X_test)
-
-print("\n=== METRICS ===")
-print(f"Training Accuracy: {accuracy_score(y_train, train_pred) * 100:.2f}%")
-print(f"Testing Accuracy:  {accuracy_score(y_test, test_pred) * 100:.2f}%")
-
-print("\n5. Saving QGIS CSV...")
-test_df = df.loc[X_test.index].copy()
-test_df['Predicted_Hotspot'] = test_pred
-test_df.to_csv('QGIS_Predictions_1_Basic.csv', index=False)
-print("Saved -> 'QGIS_Predictions_1_Basic.csv'")
-
-print("\n6. Saving Confusion Matrix Image...")
-cm = confusion_matrix(y_test, test_pred)
-plt.figure(figsize=(6, 4))
-sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', 
-            xticklabels=["Predicted Safe", "Predicted Hotspot"], 
-            yticklabels=["Actually Safe", "Actually Hotspot"])
-plt.title('Basic Random Forest - Confusion Matrix')
-plt.ylabel('True Reality (Map)')
-plt.xlabel('Algorithm Prediction')
-plt.tight_layout()
-plt.savefig('Matrix_1_Basic_RF.png', dpi=300)
-print("Saved -> 'Matrix_1_Basic_RF.png'")
+Sinuosity_Index,Dist_to_Intersection_m,No_of_Lanes,Speed_Limit_kmh,Has_Zebra_Crossing,Has_Streetlight_Infrastructure,Elevation_Gradient_Pct,Road_Type_secondary,Road_Type_secondary_link,Road_Type_trunk,Baseline_Traffic_Volume_Low,Baseline_Traffic_Volume_Moderate,Topography_Flat,Topography_Uphill,Is_Hotspot_Actual,Predicted_Hotspot,Data_Type
+1.0003,8.96,1.0,30.0,0.0,0.0,0.0,False,False,True,True,False,True,False,0,0,Real
+1.0341,64.15,1.0,50.0,0.0,0.0,-5.28,False,False,False,True,False,False,False,0,0,Real
+1.0,47.48,1.0,30.0,0.0,0.0,2.11,True,False,False,True,False,False,True,0,0,Real
+1.0161,17.61,2.0,70.0,1.0,1.0,-3.0,False,False,False,False,False,False,False,0,0,Real
+1.0037,27.23,2.0,60.0,1.0,1.0,0.0,False,False,False,False,False,True,False,1,1,Real
+1.0196,181.14,2.0,60.0,1.0,1.0,-3.0,False,False,True,False,False,False,False,0,0,Real
+1.0,40.88,1.0,50.0,0.0,0.0,2.45,False,False,False,True,False,False,True,0,0,Real
+1.0024,48.14,2.0,60.0,1.0,1.0,2.0,False,False,True,False,False,False,True,0,1,Real
+1.0,4.8,1.0,40.0,0.0,0.0,0.0,False,True,False,False,True,True,False,1,0,Real
+1.0174,25.58,1.0,40.0,0.0,0.0,1.72,False,True,False,False,True,False,True,0,0,Real
+1.0069,77.94,2.0,60.0,1.0,1.0,2.0,False,False,True,False,False,False,True,0,1,Real
+1.0128,32.03,1.0,50.0,0.0,0.0,0.0,False,False,False,True,False,True,False,0,0,Real
+1.0024,48.14,2.0,60.0,1.0,1.0,2.0,False,False,True,False,False,False,True,0,1,Real
+1.0034,38.23,2.0,60.0,1.0,1.0,-0.5,False,False,True,False,False,True,False,1,1,Real
+1.0269,82.38,1.0,50.0,0.0,0.0,-0.59,False,False,False,True,False,True,False,0,0,Real
+1.0039,47.92,2.0,70.0,1.0,1.0,-1.5,False,False,False,False,False,True,False,0,0,Real
+1.0,3.66,1.0,30.0,0.0,0.0,0.0,False,True,False,False,True,True,False,0,0,Real
+1.0001,29.07,1.0,30.0,0.0,0.0,-5.16,False,False,True,True,False,False,False,1,0,Real
+1.0175,98.28,1.0,30.0,0.0,0.0,1.0,False,False,False,True,False,True,False,0,0,Real
+1.0004,138.55,2.0,60.0,1.0,1.0,-0.5,False,False,True,False,False,True,False,0,1,Real
+1.0575,20.54,2.0,50.0,1.0,1.0,-3.0,False,False,False,False,False,False,False,0,0,Real
+1.0017,31.02,1.0,40.0,0.0,0.0,-1.0,False,False,False,False,False,True,False,0,0,Real
+1.003638962896058,29.468027144537437,2.0,60.0,1.0,1.0,-0.10172850656988358,False,False,True,False,False,True,False,1,1,Synthetic

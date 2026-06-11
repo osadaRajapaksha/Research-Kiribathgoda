@@ -1,0 +1,57 @@
+import os
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.model_selection import train_test_split
+from xgboost import XGBClassifier
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
+print("--- SCRIPT 1: BASIC XGBOOST ---")
+print("1. Loading dataset...")
+df = pd.read_csv('fixed_segments_with_ml_features.csv')
+
+features_to_keep = [
+    'Road_Type', 'Sinuosity_Index', 'Dist_to_Intersection_m', 'No_of_Lanes', 
+    'Speed_Limit_kmh', 'Has_Zebra_Crossing', 'Has_Streetlight_Infrastructure', 
+    'Baseline_Traffic_Volume', 'Elevation_Gradient_Pct', 'Topography'
+]
+
+X = pd.get_dummies(df[features_to_keep], drop_first=True)
+y = df['Is_Hotspot']
+
+print("2. Splitting Data (80% Train, 20% Test)...")
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
+
+print("3. Training Basic XGBoost...")
+# Compute scale_pos_weight for class imbalance
+scale_pos_weight = (y_train == 0).sum() / (y_train == 1).sum()
+xgb_basic = XGBClassifier(scale_pos_weight=scale_pos_weight, random_state=42, eval_metric='logloss')
+xgb_basic.fit(X_train, y_train)
+
+print("4. Generating Predictions...")
+train_pred = xgb_basic.predict(X_train)
+test_pred = xgb_basic.predict(X_test)
+
+print("\n=== METRICS ===")
+print(f"Training Accuracy: {accuracy_score(y_train, train_pred) * 100:.2f}%")
+print(f"Testing Accuracy:  {accuracy_score(y_test, test_pred) * 100:.2f}%")
+
+print("\n5. Saving QGIS CSV...")
+test_df = df.loc[X_test.index].copy()
+test_df['Predicted_Hotspot'] = test_pred
+test_df.to_csv('QGIS_Predictions_1_Basic_XGB.csv', index=False)
+print("Saved -> 'QGIS_Predictions_1_Basic_XGB.csv'")
+
+print("\n6. Saving Confusion Matrix Image...")
+cm = confusion_matrix(y_test, test_pred)
+plt.figure(figsize=(6, 4))
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', 
+            xticklabels=["Predicted Safe", "Predicted Hotspot"], 
+            yticklabels=["Actually Safe", "Actually Hotspot"])
+plt.title('Basic XGBoost - Confusion Matrix')
+plt.ylabel('True Reality (Map)')
+plt.xlabel('Algorithm Prediction')
+plt.tight_layout()
+plt.savefig('Matrix_1_Basic_XGB.png', dpi=300)
+print("Saved -> 'Matrix_1_Basic_XGB.png'")

@@ -1,31 +1,80 @@
-Sinuosity_Index,Dist_to_Intersection_m,No_of_Lanes,Speed_Limit_kmh,Has_Zebra_Crossing,Has_Streetlight_Infrastructure,Elevation_Gradient_Pct,Road_Type_secondary,Road_Type_secondary_link,Road_Type_trunk,Baseline_Traffic_Volume_Low,Baseline_Traffic_Volume_Moderate,Topography_Flat,Topography_Uphill,Is_Hotspot_Actual,Predicted_Hotspot,Data_Type
-1.0003,8.96,1.0,30.0,0.0,0.0,0.0,False,False,True,True,False,True,False,0,0,Real
-1.0341,64.15,1.0,50.0,0.0,0.0,-5.28,False,False,False,True,False,False,False,0,0,Real
-1.0,47.48,1.0,30.0,0.0,0.0,2.11,True,False,False,True,False,False,True,0,0,Real
-1.0161,17.61,2.0,70.0,1.0,1.0,-3.0,False,False,False,False,False,False,False,0,0,Real
-1.0037,27.23,2.0,60.0,1.0,1.0,0.0,False,False,False,False,False,True,False,1,1,Real
-1.0196,181.14,2.0,60.0,1.0,1.0,-3.0,False,False,True,False,False,False,False,0,0,Real
-1.0,40.88,1.0,50.0,0.0,0.0,2.45,False,False,False,True,False,False,True,0,0,Real
-1.0024,48.14,2.0,60.0,1.0,1.0,2.0,False,False,True,False,False,False,True,0,1,Real
-1.0,4.8,1.0,40.0,0.0,0.0,0.0,False,True,False,False,True,True,False,1,0,Real
-1.0174,25.58,1.0,40.0,0.0,0.0,1.72,False,True,False,False,True,False,True,0,0,Real
-1.0069,77.94,2.0,60.0,1.0,1.0,2.0,False,False,True,False,False,False,True,0,0,Real
-1.0128,32.03,1.0,50.0,0.0,0.0,0.0,False,False,False,True,False,True,False,0,0,Real
-1.0024,48.14,2.0,60.0,1.0,1.0,2.0,False,False,True,False,False,False,True,0,1,Real
-1.0034,38.23,2.0,60.0,1.0,1.0,-0.5,False,False,True,False,False,True,False,1,1,Real
-1.0269,82.38,1.0,50.0,0.0,0.0,-0.59,False,False,False,True,False,True,False,0,0,Real
-1.0039,47.92,2.0,70.0,1.0,1.0,-1.5,False,False,False,False,False,True,False,0,0,Real
-1.0,3.66,1.0,30.0,0.0,0.0,0.0,False,True,False,False,True,True,False,0,0,Real
-1.0001,29.07,1.0,30.0,0.0,0.0,-5.16,False,False,True,True,False,False,False,1,0,Real
-1.0175,98.28,1.0,30.0,0.0,0.0,1.0,False,False,False,True,False,True,False,0,0,Real
-1.0004,138.55,2.0,60.0,1.0,1.0,-0.5,False,False,True,False,False,True,False,0,1,Real
-1.0575,20.54,2.0,50.0,1.0,1.0,-3.0,False,False,False,False,False,False,False,0,0,Real
-1.0017,31.02,1.0,40.0,0.0,0.0,-1.0,False,False,False,False,False,True,False,0,0,Real
-1.0034299924747454,37.130275926001964,2.0,60.0,1.0,1.0,-0.45001254209099856,False,False,True,False,False,True,False,1,1,Synthetic
-1.0000459248891966,15.945970608011596,1.0,35.40751108034133,0.0,0.0,-2.3697242825438747,False,True,True,True,True,True,False,1,0,Synthetic
-1.0013013510001005,28.4559761555042,1.3337086111390217,40.011258334170655,0.33370861113902184,0.33370861113902184,-3.438063566522647,False,False,True,True,False,True,False,1,1,Synthetic
-1.0029285395008576,36.92133994783502,1.8571331820780592,55.71399546234178,0.8571331820780592,0.8571331820780592,-1.165759371516244,False,False,True,True,False,True,False,1,1,Synthetic
-1.0024082873499107,19.39942844824277,1.6508884729488529,53.01776945897706,0.6508884729488529,0.6508884729488529,0.0,False,True,False,False,True,True,False,1,1,Synthetic
-1.0034169234737083,37.609472630701895,2.0,60.0,1.0,1.0,-0.47179421048644987,False,False,True,False,False,True,False,1,1,Synthetic
-1.0000278001227734,11.547089797084165,1.0,37.21998772266825,0.0,0.0,-1.4344863351031845,False,True,True,True,True,True,False,1,0,Synthetic
-1.0003212102475434,28.95693698458898,1.0614472909842498,31.843418729527496,0.061447290984249836,0.061447290984249836,-4.842931978521271,False,False,True,True,False,True,False,1,1,Synthetic
+import os
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, confusion_matrix
+from imblearn.over_sampling import SMOTE
+from imblearn.pipeline import Pipeline 
+
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
+print("--- SCRIPT 3: SMOTE + TUNED RANDOM FOREST ---")
+print("1. Loading dataset...")
+df = pd.read_csv('fixed_segments_with_ml_features.csv')
+
+features_to_keep = [
+    'Road_Type', 'Sinuosity_Index', 'Dist_to_Intersection_m', 'No_of_Lanes', 
+    'Speed_Limit_kmh', 'Has_Zebra_Crossing', 'Has_Streetlight_Infrastructure', 
+    'Baseline_Traffic_Volume', 'Elevation_Gradient_Pct', 'Topography'
+]
+
+X = pd.get_dummies(df[features_to_keep], drop_first=True)
+y = df['Is_Hotspot']
+
+print("2. Splitting Data (80% Train, 20% Test)...")
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
+
+print("3. Tuning SMOTE + Random Forest with GridSearch...")
+pipeline = Pipeline([
+    ('smote', SMOTE(random_state=42)),
+    ('rf', RandomForestClassifier(class_weight='balanced', random_state=42))
+])
+
+param_grid = {
+    'smote__sampling_strategy': [0.1, 0.2, 0.3], 
+    'rf__n_estimators': [100, 200, 300],         
+    'rf__max_depth': [3, 5, 7]                   
+}
+
+grid_search = GridSearchCV(pipeline, param_grid, cv=5, scoring='f1', n_jobs=-1)
+grid_search.fit(X_train, y_train)
+
+best_model = grid_search.best_estimator_
+print(f"Best Parameters: {grid_search.best_params_}")
+
+print("4. Generating Predictions...")
+train_pred = best_model.predict(X_train)
+test_pred = best_model.predict(X_test)
+
+print("\n=== METRICS ===")
+print(f"Training Accuracy: {accuracy_score(y_train, train_pred) * 100:.2f}%")
+print(f"Testing Accuracy:  {accuracy_score(y_test, test_pred) * 100:.2f}%")
+
+print("\n5. Saving QGIS CSV...")
+test_df = df.loc[X_test.index].copy()
+test_df['Predicted_Hotspot'] = test_pred
+
+# Add categorization for better QGIS coloring
+def categorize_prediction(row):
+    if row['Is_Hotspot'] == 1 and row['Predicted_Hotspot'] == 1: return 'True Hotspot'
+    if row['Is_Hotspot'] == 0 and row['Predicted_Hotspot'] == 0: return 'True Safe'
+    if row['Is_Hotspot'] == 0 and row['Predicted_Hotspot'] == 1: return 'False Alarm'
+    if row['Is_Hotspot'] == 1 and row['Predicted_Hotspot'] == 0: return 'Missed Hotspot'
+
+test_df['Prediction_Category'] = test_df.apply(categorize_prediction, axis=1)
+test_df.to_csv('QGIS_Predictions_3_SMOTE_Tuned.csv', index=False)
+print("Saved -> 'QGIS_Predictions_3_SMOTE_Tuned.csv'")
+
+print("\n6. Saving Confusion Matrix Image...")
+cm = confusion_matrix(y_test, test_pred)
+plt.figure(figsize=(6, 4))
+sns.heatmap(cm, annot=True, fmt='d', cmap='Greens', 
+            xticklabels=["Predicted Safe", "Predicted Hotspot"], 
+            yticklabels=["Actually Safe", "Actually Hotspot"])
+plt.title('SMOTE + Tuned RF - Confusion Matrix')
+plt.ylabel('True Reality (Map)')
+plt.xlabel('Algorithm Prediction')
+plt.tight_layout()
+plt.savefig('Matrix_3_SMOTE_Tuned_RF.png', dpi=300)
+print("Saved -> 'Matrix_3_SMOTE_Tuned_RF.png'")
